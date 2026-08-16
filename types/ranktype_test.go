@@ -6,10 +6,9 @@ import (
 )
 
 // TestRankType_String_MatchesProtoNames pins a representative set of rank ids
-// to their wire names. The values are cross-checked against the generated
-// proto RankType_name table that mysql.go relied on before the type-swap, so
-// strings.TrimPrefix(RankType(id).String(), "RANK_TYPE_") stays byte-identical
-// to the old proto-derived RankShort.
+// to their proto wire names. The values are cross-checked against the generated
+// proto RankType_name table so RankType.String() stays byte-identical to the
+// old proto enum.
 func TestRankType_String_MatchesProtoNames(t *testing.T) {
 	cases := []struct {
 		id   RankType
@@ -49,8 +48,8 @@ func TestRankType_String_GapAndUnknownFallBackToDecimal(t *testing.T) {
 	}
 }
 
-// TestRankType_RankShort_StripsPrefix checks the actual RankShort derivation
-// the datastore performs, through the public RankShort() method.
+// TestRankType_RankShort checks the short abbreviation the datastore stamps
+// onto profiles through the public RankShort() method.
 func TestRankType_RankShort_StripsPrefix(t *testing.T) {
 	cases := map[RankType]string{
 		1:  "GOA",

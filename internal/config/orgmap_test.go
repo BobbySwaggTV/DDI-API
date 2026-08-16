@@ -46,3 +46,11 @@ func TestAwolActiveRostersDefault(t *testing.T) {
 	Load()
 	assert.Equal(t, []int{1, 2}, AwolActiveRosters())
 }
+
+func TestRankShortDefaults(t *testing.T) {
+	Load()
+	assert.Equal(t, "UNSPECIFIED", RankShort(0))
+	assert.Equal(t, "COL", RankShort(6))
+	assert.Equal(t, "PVT", RankShort(22))
+	assert.Equal(t, "24", RankShort(24))
+}

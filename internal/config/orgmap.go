@@ -16,6 +16,7 @@ import (
 // orgMap holds the runtime organization mapping state.
 type orgMap struct {
 	RosterNames   map[int32]string
+	RankShorts    map[int32]string
 	AOR           map[string]string
 	AORSubstrings map[string]string
 	AwolActive    []int
@@ -61,6 +62,15 @@ func loadFromViper() *orgMap {
 		if err := json.Unmarshal([]byte(v), &names); err == nil {
 			for k, val := range names {
 				om.RosterNames[k] = val
+			}
+		}
+	}
+
+	if v := viper.GetString("RANK_SHORT_NAMES"); v != "" {
+		var ranks map[int32]string
+		if err := json.Unmarshal([]byte(v), &ranks); err == nil {
+			for k, val := range ranks {
+				om.RankShorts[k] = val
 			}
 		}
 	}
@@ -112,6 +122,38 @@ func defaultOrgMap() *orgMap {
 			4: "ROSTER_TYPE_HONOR_ROLL",
 			5: "ROSTER_TYPE_MEMORIAL",
 			6: "ROSTER_TYPE_FORMER_MEMBERS",
+		},
+		RankShorts: map[int32]string{
+			0:  "UNSPECIFIED",
+			1:  "GOA",
+			2:  "GEN",
+			3:  "LTG",
+			4:  "MG",
+			5:  "BG",
+			6:  "COL",
+			7:  "LTC",
+			8:  "MAJ",
+			9:  "CPT",
+			10: "1LT",
+			11: "2LT",
+			12: "CSM",
+			13: "SGM",
+			14: "1SG",
+			15: "MSG",
+			16: "SFC",
+			17: "SSG",
+			18: "SGT",
+			19: "CPL",
+			20: "SPC",
+			21: "PFC",
+			22: "PVT",
+			23: "RCT",
+			26: "CW5",
+			27: "CW4",
+			28: "CW3",
+			29: "CW2",
+			30: "WO1",
+			31: "AR",
 		},
 		AOR: map[string]string{
 			"Regimental HQ":             "HHQ",
@@ -202,4 +244,16 @@ func AwolActiveRosters() []int {
 	orgMu.RLock()
 	defer orgMu.RUnlock()
 	return org.AwolActive
+}
+
+// RankShort returns the configured short name for a rank id. Uncataloged ids
+// fall back to their decimal string so the wire stays deterministic.
+func RankShort(rankId int32) string {
+	ensureLoaded()
+	orgMu.RLock()
+	defer orgMu.RUnlock()
+	if short, ok := org.RankShorts[rankId]; ok {
+		return short
+	}
+	return strconv.FormatInt(int64(rankId), 10)
 }

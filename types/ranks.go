@@ -2,7 +2,8 @@ package types
 
 import (
 	"strconv"
-	"strings"
+
+	"github.com/BobbySwaggTV/DDI-API/internal/config"
 )
 
 // RankExpanded is one entry in the rank reference list — the catalog variant
@@ -27,11 +28,11 @@ type RanksResponse struct {
 // retired at Phase 4 exactly.
 //
 // Unlike RosterType and RecordType, RankType never appears on the wire as a
-// named enum: it exists solely so the datastore can derive RankShort by
-// stripping the RANK_TYPE_ prefix off the name (e.g. RankType(6) -> "COL").
-// The name table, the 24/25 gap, and the decimal fallback for uncataloged
-// values are ported verbatim from the generated proto RankType_name so the
-// derived RankShort stays byte-identical across the proto -> types swap.
+// named enum: it exists solely so the datastore can resolve a rank id to a
+// short abbreviation via the configured rank short catalog. The name table,
+// the 24/25 gap, and the decimal fallback for uncataloged values are ported
+// verbatim from the generated proto RankType_name so the legacy derivation
+// stays byte-identical across the proto -> types swap.
 type RankType int32
 
 const (
@@ -116,9 +117,9 @@ func (rt RankType) String() string {
 	return strconv.FormatInt(int64(rt), 10)
 }
 
-// RankShort is the short rank name the datastore stamps onto profiles: the
-// enum name with the RANK_TYPE_ prefix stripped (e.g. "COL"). For uncataloged
-// ids it is the bare decimal (the prefix strip is a no-op on a number).
+// RankShort is the short rank name the datastore stamps onto profiles.
+// The value is read from the configured rank short catalog (RANK_SHORT_NAMES);
+// for uncataloged ids it falls back to the bare decimal.
 func (rt RankType) RankShort() string {
-	return strings.TrimPrefix(rt.String(), "RANK_TYPE_")
+	return config.RankShort(int32(rt))
 }
