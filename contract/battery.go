@@ -29,7 +29,7 @@ package contract
 // Path literals reference the recording seed (see fake_datastore_test.go and
 // contract/README.md): relation 1 ↔ user 3 (Jarvis.A), relation 2 ↔ user 8
 // (John.Doe), tickets 42/43/44, injected-outage ids 777 (profile) and
-// ROSTER_TYPE_ARLINGTON (roster). Cursor literals are base64url of the
+// ROSTER_TYPE_MEMORIAL (roster). Cursor literals are base64url of the
 // deterministic seed cursors, exactly as the stack emits them.
 func Cases() []Case {
 	const (
@@ -108,7 +108,7 @@ func Cases() []Case {
 			Notes: "Forum permission-group directory (xf_user_group); bare array of {groupId, groupName}, 32-bit groupId as a JSON number, ordered by groupId asc (ADR 0007)."},
 
 		// --- Roster: both enum path forms, empty, errors -------------------
-		{Name: "roster/combat_by_name", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_COMBAT", Auth: AuthRead,
+		{Name: "roster/combat_by_name", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_ACTIVE", Auth: AuthRead,
 			Notes: "Enum NAME path form. Map keyed by relation id (string keys in JSON)."},
 		{Name: "roster/combat_by_number", Method: "GET", Path: "/api/v1/roster/1", Auth: AuthRead,
 			Notes: "Enum NUMBER path form: same payload as combat_by_name."},
@@ -120,13 +120,13 @@ func Cases() []Case {
 			Notes: "Numeric zero: same InvalidArgument."},
 		{Name: "roster/bogus_enum", Method: "GET", Path: "/api/v1/roster/IMAGINARY_ROSTER", Auth: AuthRead,
 			Notes: "Unknown enum literal: gateway parse error leaks enum-parse text. Frozen."},
-		{Name: "roster/internal_error", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_ARLINGTON", Auth: AuthRead,
+		{Name: "roster/internal_error", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_MEMORIAL", Auth: AuthRead,
 			Notes: "Datastore failure: Internal JSON; message embeds the enum name and wrapped error."},
-		{Name: "roster/unknown_query_param_ignored", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_COMBAT?totally_unknown=1&alsoUnknown=x", Auth: AuthRead,
+		{Name: "roster/unknown_query_param_ignored", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_ACTIVE?totally_unknown=1&alsoUnknown=x", Auth: AuthRead,
 			Notes: "Unknown query parameters are ignored: identical payload to combat_by_name."},
 
 		// --- Lite roster ----------------------------------------------------
-		{Name: "roster/lite_combat_by_name", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_COMBAT/lite", Auth: AuthRead,
+		{Name: "roster/lite_combat_by_name", Method: "GET", Path: "/api/v1/roster/ROSTER_TYPE_ACTIVE/lite", Auth: AuthRead,
 			Notes: "Lite profile shape (no records/awards arrays)."},
 		{Name: "roster/lite_combat_by_number", Method: "GET", Path: "/api/v1/roster/1/lite", Auth: AuthRead,
 			Notes: "Number form of the lite roster."},
@@ -136,7 +136,7 @@ func Cases() []Case {
 			Notes: "Zero enum on the lite binding."},
 
 		// --- S1 uniforms ----------------------------------------------------
-		{Name: "s1/uniforms_combat_by_name", Method: "GET", Path: "/api/v1/s1/uniforms/ROSTER_TYPE_COMBAT", Auth: AuthRead,
+		{Name: "s1/uniforms_combat_by_name", Method: "GET", Path: "/api/v1/s1/uniforms/ROSTER_TYPE_ACTIVE", Auth: AuthRead,
 			Notes: "S1 uniforms shape, enum name form."},
 		{Name: "s1/uniforms_combat_by_number", Method: "GET", Path: "/api/v1/s1/uniforms/1", Auth: AuthRead,
 			Notes: "S1 uniforms, enum number form: same payload."},

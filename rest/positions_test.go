@@ -122,7 +122,7 @@ func TestNewStack_SearchSparseLiteProfilePreservesNils(t *testing.T) {
 		"rank":null,
 		"realName":"John Doe",
 		"uniformUrl":"https://7cav.us/data/roster_uniforms/0/2.jpg",
-		"roster":"ROSTER_TYPE_COMBAT",
+		"roster":"ROSTER_TYPE_ACTIVE",
 		"primary":null,
 		"secondaries":[],
 		"joinDate":"2026-01-15",

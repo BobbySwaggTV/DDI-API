@@ -22,7 +22,7 @@
         },
         "realName": "Adam Jarvis",
         "recordDate": "2020-10-17",
-        "roster": "ROSTER_TYPE_COMBAT",
+        "roster": "ROSTER_TYPE_ACTIVE",
         "secondaries": [
           {
             "positionId": "812",

@@ -22,7 +22,7 @@
         },
         "realName": "Adam Jarvis",
         "recordDate": "2020-10-17",
-        "roster": "ROSTER_TYPE_COMBAT",
+        "roster": "ROSTER_TYPE_ACTIVE",
         "secondaries": [
           {
             "positionId": "812",
@@ -52,7 +52,7 @@
         },
         "realName": "John Doe",
         "recordDate": "",
-        "roster": "ROSTER_TYPE_COMBAT",
+        "roster": "ROSTER_TYPE_ACTIVE",
         "secondaries": [],
         "uniformUrl": "https://7cav.us/data/roster_uniforms/0/2.jpg",
         "user": {

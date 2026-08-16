@@ -96,7 +96,7 @@ Seed highlights (all referenced by path literals in the battery):
 - tickets 42/43/44 with distinct categories (5 is a child of 1), states,
   statuses and timestamps, so every list filter selects a distinguishable
   subset; cursors are the stack's real base64url forms.
-- injected outages: profile id `777` and `ROSTER_TYPE_ARLINGTON` produce the
+- injected outages: profile id `777` and `ROSTER_TYPE_MEMORIAL` produce the
   Internal-error (500) goldens with their leaked wrapped messages — frozen.
 - position search returns hits only for the exact title
   `Regimental Technical Aide`; everything else is the frozen `{"profiles":{}}`

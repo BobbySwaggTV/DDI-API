@@ -17,7 +17,7 @@
     },
     "realName": "John Doe",
     "records": [],
-    "roster": "ROSTER_TYPE_COMBAT",
+    "roster": "ROSTER_TYPE_ACTIVE",
     "secondaries": [],
     "uniformUrl": "https://7cav.us/data/roster_uniforms/0/2.jpg",
     "user": {

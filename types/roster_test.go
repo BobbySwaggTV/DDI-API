@@ -36,7 +36,7 @@ func TestLiteProfile_WireForm(t *testing.T) {
 		"rank":              map[string]any{"rankShort": "MG", "rankFull": "Major General", "rankImageUrl": "img", "rankId": "4"},
 		"realName":          "Adam Jarvis",
 		"uniformUrl":        "uniform",
-		"roster":            "ROSTER_TYPE_COMBAT",
+		"roster":            "ROSTER_TYPE_ACTIVE",
 		"primary":           map[string]any{"positionTitle": "Regimental Technical Aide", "positionId": "773"},
 		"secondaries":       []any{map[string]any{"positionTitle": "S6 Web Developer", "positionId": "812"}},
 		"joinDate":          "2014-02-08",
@@ -113,12 +113,12 @@ func TestRosterType_MarshalsAsNameString(t *testing.T) {
 	}{
 		{types.RosterTypeUnspecified, `"ROSTER_TYPE_UNSPECIFIED"`},
 		{types.RosterType(0), `"ROSTER_TYPE_UNSPECIFIED"`}, // zero value == unspecified
-		{types.RosterTypeCombat, `"ROSTER_TYPE_COMBAT"`},
+		{types.RosterTypeCombat, `"ROSTER_TYPE_ACTIVE"`},
 		{types.RosterTypeReserve, `"ROSTER_TYPE_RESERVE"`},
-		{types.RosterTypeEloa, `"ROSTER_TYPE_ELOA"`},
-		{types.RosterTypeWallOfHonor, `"ROSTER_TYPE_WALL_OF_HONOR"`},
-		{types.RosterTypeArlington, `"ROSTER_TYPE_ARLINGTON"`},
-		{types.RosterTypePastMembers, `"ROSTER_TYPE_PAST_MEMBERS"`},
+		{types.RosterTypeEloa, `"ROSTER_TYPE_EXTENDED_LEAVE"`},
+		{types.RosterTypeWallOfHonor, `"ROSTER_TYPE_HONOR_ROLL"`},
+		{types.RosterTypeArlington, `"ROSTER_TYPE_MEMORIAL"`},
+		{types.RosterTypePastMembers, `"ROSTER_TYPE_FORMER_MEMBERS"`},
 	}
 	for _, c := range cases {
 		raw, err := json.Marshal(c.value)
@@ -140,7 +140,7 @@ func TestRosterType_UnknownValueMarshalsAsNumber(t *testing.T) {
 // format the same way in error messages as they do in JSON — the roster
 // handlers interpolate the enum into frozen message strings.
 func TestRosterType_StringMatchesWireName(t *testing.T) {
-	assert.Equal(t, "ROSTER_TYPE_COMBAT", types.RosterTypeCombat.String())
+	assert.Equal(t, "ROSTER_TYPE_ACTIVE", types.RosterTypeCombat.String())
 	assert.Equal(t, "ROSTER_TYPE_UNSPECIFIED", types.RosterType(0).String())
 	assert.Equal(t, "99", types.RosterType(99).String())
 }
@@ -155,17 +155,17 @@ func TestParseRosterType_NameAndNumberForms(t *testing.T) {
 	}{
 		{"ROSTER_TYPE_UNSPECIFIED", types.RosterTypeUnspecified},
 		{"0", types.RosterTypeUnspecified},
-		{"ROSTER_TYPE_COMBAT", types.RosterTypeCombat},
+		{"ROSTER_TYPE_ACTIVE", types.RosterTypeCombat},
 		{"1", types.RosterTypeCombat},
 		{"ROSTER_TYPE_RESERVE", types.RosterTypeReserve},
 		{"2", types.RosterTypeReserve},
-		{"ROSTER_TYPE_ELOA", types.RosterTypeEloa},
+		{"ROSTER_TYPE_EXTENDED_LEAVE", types.RosterTypeEloa},
 		{"3", types.RosterTypeEloa},
-		{"ROSTER_TYPE_WALL_OF_HONOR", types.RosterTypeWallOfHonor},
+		{"ROSTER_TYPE_HONOR_ROLL", types.RosterTypeWallOfHonor},
 		{"4", types.RosterTypeWallOfHonor},
-		{"ROSTER_TYPE_ARLINGTON", types.RosterTypeArlington},
+		{"ROSTER_TYPE_MEMORIAL", types.RosterTypeArlington},
 		{"5", types.RosterTypeArlington},
-		{"ROSTER_TYPE_PAST_MEMBERS", types.RosterTypePastMembers},
+		{"ROSTER_TYPE_FORMER_MEMBERS", types.RosterTypePastMembers},
 		{"6", types.RosterTypePastMembers},
 	}
 	for _, c := range cases {
@@ -209,7 +209,7 @@ func TestParseRosterType_InvalidLiterals(t *testing.T) {
 		"-1",                  // negative, outside the catalog
 		"09",                  // octal with a 9 — invalid syntax under base 0
 		"",                    // empty
-		"ROSTER_TYPE_COMBAT ", // stray whitespace
+		"ROSTER_TYPE_ACTIVE ", // stray whitespace
 	} {
 		t.Run(in, func(t *testing.T) {
 			_, err := types.ParseRosterType(in)
@@ -233,7 +233,7 @@ func TestParseRosterType_InvalidLiterals(t *testing.T) {
 // Run: go test ./types -run x -fuzz FuzzParseRosterType
 func FuzzParseRosterType(f *testing.F) {
 	for _, seed := range []string{
-		"ROSTER_TYPE_COMBAT",      // canonical name
+		"ROSTER_TYPE_ACTIVE",      // canonical name
 		"1",                       // decimal number form
 		"0x1",                     // base-0 hex (frozen leniency)
 		"0b10",                    // base-0 binary
@@ -245,7 +245,7 @@ func FuzzParseRosterType(f *testing.F) {
 		"99999999999999999999",    // overflows int32
 		"combat",                  // lowercase, not a name
 		"",                        // empty
-		"ROSTER_TYPE_COMBAT ",     // trailing space (not trimmed)
+		"ROSTER_TYPE_ACTIVE ",     // trailing space (not trimmed)
 	} {
 		f.Add(seed)
 	}

@@ -61,7 +61,7 @@ func (rt RosterType) MarshalJSON() ([]byte, error) {
 // mirroring grpc-gateway's runtime.Enum (v2.29.0 runtime/convert.go) exactly
 // — both accepted forms are golden-pinned (PRD #112):
 //
-//   - the enum NAME (ROSTER_TYPE_COMBAT), looked up in the catalog;
+//   - the enum NAME (ROSTER_TYPE_ACTIVE), looked up in the catalog;
 //   - the enum NUMBER (the upstream roster_id FK), parsed via the gateway's
 //     runtime.Int32 = strconv.ParseInt(val, 0, 32) — BASE 0, so Go
 //     integer-literal forms (0x1 hex, 0b1 binary, leading-0 octal, digit

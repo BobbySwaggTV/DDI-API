@@ -914,7 +914,7 @@ components:
 
   parameters:
     # Roster enum path parameter: the endpoint accepts the enum NAME or its
-    # NUMBER (e.g. ROSTER_TYPE_COMBAT and 1 return the same payload); anything
+    # NUMBER (e.g. ROSTER_TYPE_ACTIVE and 1 return the same payload); anything
     # else is a 400. The zero value parses but the handler rejects it with
     # 'cannot request null roster type'.
     RosterPath:
@@ -1018,12 +1018,12 @@ components:
       type: string
       enum:
         - ROSTER_TYPE_UNSPECIFIED
-        - ROSTER_TYPE_COMBAT
+        - ROSTER_TYPE_ACTIVE
         - ROSTER_TYPE_RESERVE
-        - ROSTER_TYPE_ELOA
-        - ROSTER_TYPE_WALL_OF_HONOR
-        - ROSTER_TYPE_ARLINGTON
-        - ROSTER_TYPE_PAST_MEMBERS
+        - ROSTER_TYPE_EXTENDED_LEAVE
+        - ROSTER_TYPE_HONOR_ROLL
+        - ROSTER_TYPE_MEMORIAL
+        - ROSTER_TYPE_FORMER_MEMBERS
 
     RecordType:
       type: string

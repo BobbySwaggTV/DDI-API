@@ -9,15 +9,15 @@ import (
 func TestRosterNameDefaults(t *testing.T) {
 	Load()
 	assert.Equal(t, "ROSTER_TYPE_UNSPECIFIED", RosterName(0))
-	assert.Equal(t, "ROSTER_TYPE_COMBAT", RosterName(1))
+	assert.Equal(t, "ROSTER_TYPE_ACTIVE", RosterName(1))
 	assert.Equal(t, "ROSTER_TYPE_RESERVE", RosterName(2))
-	assert.Equal(t, "ROSTER_TYPE_ELOA", RosterName(3))
+	assert.Equal(t, "ROSTER_TYPE_EXTENDED_LEAVE", RosterName(3))
 	assert.Equal(t, "99", RosterName(99))
 }
 
 func TestRosterValueDefaults(t *testing.T) {
 	Load()
-	v, ok := RosterValue("ROSTER_TYPE_COMBAT")
+	v, ok := RosterValue("ROSTER_TYPE_ACTIVE")
 	assert.True(t, ok)
 	assert.Equal(t, int32(1), v)
 

@@ -43,7 +43,7 @@
             "recordUid": "13863"
           }
         ],
-        "roster": "ROSTER_TYPE_COMBAT",
+        "roster": "ROSTER_TYPE_ACTIVE",
         "secondaries": [
           {
             "positionId": "812",
@@ -73,7 +73,7 @@
         },
         "realName": "John Doe",
         "records": [],
-        "roster": "ROSTER_TYPE_COMBAT",
+        "roster": "ROSTER_TYPE_ACTIVE",
         "secondaries": [],
         "uniformUrl": "https://7cav.us/data/roster_uniforms/0/2.jpg",
         "user": {
@@ -89,6 +89,6 @@
   },
   "method": "GET",
   "notes": "Unknown query parameters are ignored: identical payload to combat_by_name.",
-  "path": "/api/v1/roster/ROSTER_TYPE_COMBAT?totally_unknown=1&alsoUnknown=x",
+  "path": "/api/v1/roster/ROSTER_TYPE_ACTIVE?totally_unknown=1&alsoUnknown=x",
   "status": 200
 }

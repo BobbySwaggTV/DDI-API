@@ -100,20 +100,20 @@ var specRoutes = map[string]string{
 	// Full roster (#127): both enum path forms (name/number), empty roster,
 	// zero enum under both forms, bogus literal, injected outage — the
 	// unknown-query case's base path is the by-name happy path.
-	"/api/v1/roster/ROSTER_TYPE_COMBAT":      "/api/v1/roster/{roster}",
+	"/api/v1/roster/ROSTER_TYPE_ACTIVE":      "/api/v1/roster/{roster}",
 	"/api/v1/roster/1":                       "/api/v1/roster/{roster}",
 	"/api/v1/roster/ROSTER_TYPE_RESERVE":     "/api/v1/roster/{roster}",
 	"/api/v1/roster/ROSTER_TYPE_UNSPECIFIED": "/api/v1/roster/{roster}",
 	"/api/v1/roster/0":                       "/api/v1/roster/{roster}",
 	"/api/v1/roster/IMAGINARY_ROSTER":        "/api/v1/roster/{roster}",
-	"/api/v1/roster/ROSTER_TYPE_ARLINGTON":   "/api/v1/roster/{roster}",
+	"/api/v1/roster/ROSTER_TYPE_MEMORIAL":    "/api/v1/roster/{roster}",
 	// Lite roster: name/number forms, empty roster, zero enum.
-	"/api/v1/roster/ROSTER_TYPE_COMBAT/lite":      "/api/v1/roster/{roster}/lite",
+	"/api/v1/roster/ROSTER_TYPE_ACTIVE/lite":      "/api/v1/roster/{roster}/lite",
 	"/api/v1/roster/1/lite":                       "/api/v1/roster/{roster}/lite",
 	"/api/v1/roster/2/lite":                       "/api/v1/roster/{roster}/lite",
 	"/api/v1/roster/ROSTER_TYPE_UNSPECIFIED/lite": "/api/v1/roster/{roster}/lite",
 	// S1 uniforms: name/number forms, zero enum.
-	"/api/v1/s1/uniforms/ROSTER_TYPE_COMBAT": "/api/v1/s1/uniforms/{roster}",
+	"/api/v1/s1/uniforms/ROSTER_TYPE_ACTIVE": "/api/v1/s1/uniforms/{roster}",
 	"/api/v1/s1/uniforms/1":                  "/api/v1/s1/uniforms/{roster}",
 	"/api/v1/s1/uniforms/0":                  "/api/v1/s1/uniforms/{roster}",
 	"/api/v1/does/not/exist":                 "", // off-spec: unknown-path tier (mux behavior, not an operation)
@@ -340,14 +340,14 @@ func TestNewStack_SpecValidation(t *testing.T) {
 	liveWitnesses := map[string]liveWitnessSpec{
 		"lite_roster_500_outage": {
 			status: http.StatusInternalServerError,
-			path:   "/api/v1/roster/ROSTER_TYPE_COMBAT/lite",
+			path:   "/api/v1/roster/ROSTER_TYPE_ACTIVE/lite",
 			ds: &fakeDatastore{
 				findLiteRosterByType: func(types.RosterType) (*types.LiteRoster, error) { return nil, io.ErrUnexpectedEOF },
 			},
 		},
 		"s1_uniforms_500_outage": {
 			status: http.StatusInternalServerError,
-			path:   "/api/v1/s1/uniforms/ROSTER_TYPE_COMBAT",
+			path:   "/api/v1/s1/uniforms/ROSTER_TYPE_ACTIVE",
 			ds: &fakeDatastore{
 				findS1UniformsRosterByType: func(types.RosterType) (*types.S1UniformsRoster, error) { return nil, io.ErrUnexpectedEOF },
 			},

@@ -3,7 +3,7 @@
   "body": {
     "code": 13,
     "details": [],
-    "message": "fetch roster ROSTER_TYPE_ARLINGTON: simulated datastore outage"
+    "message": "fetch roster ROSTER_TYPE_MEMORIAL: simulated datastore outage"
   },
   "case": "roster/internal_error",
   "header": {
@@ -11,6 +11,6 @@
   },
   "method": "GET",
   "notes": "Datastore failure: Internal JSON; message embeds the enum name and wrapped error.",
-  "path": "/api/v1/roster/ROSTER_TYPE_ARLINGTON",
+  "path": "/api/v1/roster/ROSTER_TYPE_MEMORIAL",
   "status": 500
 }

@@ -106,12 +106,12 @@ func defaultOrgMap() *orgMap {
 	return &orgMap{
 		RosterNames: map[int32]string{
 			0: "ROSTER_TYPE_UNSPECIFIED",
-			1: "ROSTER_TYPE_COMBAT",
+			1: "ROSTER_TYPE_ACTIVE",
 			2: "ROSTER_TYPE_RESERVE",
-			3: "ROSTER_TYPE_ELOA",
-			4: "ROSTER_TYPE_WALL_OF_HONOR",
-			5: "ROSTER_TYPE_ARLINGTON",
-			6: "ROSTER_TYPE_PAST_MEMBERS",
+			3: "ROSTER_TYPE_EXTENDED_LEAVE",
+			4: "ROSTER_TYPE_HONOR_ROLL",
+			5: "ROSTER_TYPE_MEMORIAL",
+			6: "ROSTER_TYPE_FORMER_MEMBERS",
 		},
 		AOR: map[string]string{
 			"Regimental HQ":             "HHQ",

@@ -160,21 +160,21 @@ func TestNewStack_RosterSecondaryAndPostDateOutagesAreInternal(t *testing.T) {
 	}{
 		{
 			name: "full/secondary",
-			path: "/api/v1/roster/ROSTER_TYPE_COMBAT",
+			path: "/api/v1/roster/ROSTER_TYPE_ACTIVE",
 			fake: &fakeDatastore{findRosterByType: func(types.RosterType) (*types.Roster, error) { return nil, secondary }},
-			want: `fetch roster ROSTER_TYPE_COMBAT: error generating profiles: collect secondary positions: lookup secondary position \"20\": record not found`,
+			want: `fetch roster ROSTER_TYPE_ACTIVE: error generating profiles: collect secondary positions: lookup secondary position \"20\": record not found`,
 		},
 		{
 			name: "lite/postdate",
-			path: "/api/v1/roster/ROSTER_TYPE_COMBAT/lite",
+			path: "/api/v1/roster/ROSTER_TYPE_ACTIVE/lite",
 			fake: &fakeDatastore{findLiteRosterByType: func(types.RosterType) (*types.LiteRoster, error) { return nil, postDate }},
-			want: "fetch lite roster ROSTER_TYPE_COMBAT: fetch forum post dates: simulated datastore outage",
+			want: "fetch lite roster ROSTER_TYPE_ACTIVE: fetch forum post dates: simulated datastore outage",
 		},
 		{
 			name: "s1/secondary",
-			path: "/api/v1/s1/uniforms/ROSTER_TYPE_COMBAT",
+			path: "/api/v1/s1/uniforms/ROSTER_TYPE_ACTIVE",
 			fake: &fakeDatastore{findS1UniformsRosterByType: func(types.RosterType) (*types.S1UniformsRoster, error) { return nil, secondary }},
-			want: `fetch s1 uniforms roster ROSTER_TYPE_COMBAT: error generating profiles: collect secondary positions: lookup secondary position \"20\": record not found`,
+			want: `fetch s1 uniforms roster ROSTER_TYPE_ACTIVE: error generating profiles: collect secondary positions: lookup secondary position \"20\": record not found`,
 		},
 	}
 	for _, tc := range cases {

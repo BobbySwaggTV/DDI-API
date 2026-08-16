@@ -30,9 +30,9 @@ func rosterGet(t *testing.T, h http.Handler, path string) *httptest.ResponseReco
 // the per-route loops below witness shared behavior on every shape, so no
 // route can be registered without it.
 var rosterRoutePaths = []string{
-	"/api/v1/roster/ROSTER_TYPE_COMBAT",
-	"/api/v1/roster/ROSTER_TYPE_COMBAT/lite",
-	"/api/v1/s1/uniforms/ROSTER_TYPE_COMBAT",
+	"/api/v1/roster/ROSTER_TYPE_ACTIVE",
+	"/api/v1/roster/ROSTER_TYPE_ACTIVE/lite",
+	"/api/v1/s1/uniforms/ROSTER_TYPE_ACTIVE",
 }
 
 // The scope gate is witnessed PER roster route: a ticket-scoped key
@@ -131,7 +131,7 @@ func TestNewStack_EveryCatalogedRosterNumberServes(t *testing.T) {
 	for n := 2; n <= 6; n++ {
 		path := fmt.Sprintf("/api/v1/roster/%d", n)
 		if n == 5 {
-			continue // ROSTER_TYPE_ARLINGTON is the seeded outage (golden-pinned 500)
+			continue // ROSTER_TYPE_MEMORIAL is the seeded outage (golden-pinned 500)
 		}
 		t.Run(path, func(t *testing.T) {
 			rr := rosterGet(t, h, path)
@@ -172,8 +172,8 @@ func TestNewStack_LiteAndS1OutagesAreInternalJSON(t *testing.T) {
 		path string
 		want string
 	}{
-		{"/api/v1/roster/ROSTER_TYPE_COMBAT/lite", "fetch lite roster ROSTER_TYPE_COMBAT: unexpected EOF"},
-		{"/api/v1/s1/uniforms/ROSTER_TYPE_COMBAT", "fetch s1 uniforms roster ROSTER_TYPE_COMBAT: unexpected EOF"},
+		{"/api/v1/roster/ROSTER_TYPE_ACTIVE/lite", "fetch lite roster ROSTER_TYPE_ACTIVE: unexpected EOF"},
+		{"/api/v1/s1/uniforms/ROSTER_TYPE_ACTIVE", "fetch s1 uniforms roster ROSTER_TYPE_ACTIVE: unexpected EOF"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.path, func(t *testing.T) {
@@ -213,13 +213,13 @@ func TestNewStack_NilProfilesMapServesEmptyObject(t *testing.T) {
 		path string
 		fake *fakeDatastore
 	}{
-		{"/api/v1/roster/ROSTER_TYPE_COMBAT", &fakeDatastore{
+		{"/api/v1/roster/ROSTER_TYPE_ACTIVE", &fakeDatastore{
 			findRosterByType: func(types.RosterType) (*types.Roster, error) { return &types.Roster{}, nil },
 		}},
-		{"/api/v1/roster/ROSTER_TYPE_COMBAT/lite", &fakeDatastore{
+		{"/api/v1/roster/ROSTER_TYPE_ACTIVE/lite", &fakeDatastore{
 			findLiteRosterByType: func(types.RosterType) (*types.LiteRoster, error) { return &types.LiteRoster{}, nil },
 		}},
-		{"/api/v1/s1/uniforms/ROSTER_TYPE_COMBAT", &fakeDatastore{
+		{"/api/v1/s1/uniforms/ROSTER_TYPE_ACTIVE", &fakeDatastore{
 			findS1UniformsRosterByType: func(types.RosterType) (*types.S1UniformsRoster, error) { return &types.S1UniformsRoster{}, nil },
 		}},
 	}
@@ -239,7 +239,7 @@ func TestNewStack_NilProfilesMapServesEmptyObject(t *testing.T) {
 func TestNewStack_WrongMethodOnRosterRouteIs405WithAllow(t *testing.T) {
 	h := newStack(t)
 
-	req := httptest.NewRequest(http.MethodPost, "/api/v1/roster/ROSTER_TYPE_COMBAT", nil)
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/roster/ROSTER_TYPE_ACTIVE", nil)
 	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
@@ -285,7 +285,7 @@ func TestNewStack_LargeRosterComparesCleanAtFullSize(t *testing.T) {
 	require.NoError(t, json.Unmarshal(golden.Profiles["1"], &wantJarvis))
 	require.NoError(t, json.Unmarshal(golden.Profiles["2"], &wantDoe))
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/roster/ROSTER_TYPE_COMBAT", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/roster/ROSTER_TYPE_ACTIVE", nil)
 	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	req.Header.Set("Accept-Encoding", "gzip")
 	rr := httptest.NewRecorder()

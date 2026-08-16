@@ -13,7 +13,7 @@
           "rankShort": "MG"
         },
         "realName": "Adam Jarvis",
-        "roster": "ROSTER_TYPE_COMBAT",
+        "roster": "ROSTER_TYPE_ACTIVE",
         "secondaries": [
           {
             "positionTitle": "S6 Web Developer"
@@ -38,7 +38,7 @@
           "rankShort": "PVT"
         },
         "realName": "John Doe",
-        "roster": "ROSTER_TYPE_COMBAT",
+        "roster": "ROSTER_TYPE_ACTIVE",
         "secondaries": [],
         "uniformDate": "",
         "uniformUpdateTriggerDate": "",
