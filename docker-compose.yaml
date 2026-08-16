@@ -41,6 +41,10 @@ services:
       # ORG_AWOL_ACTIVE_ROSTERS: "1,2"
       # Optional — JSON map of rank id -> short abbreviation; defaults to the 7CAV rank table.
       # RANK_SHORT_NAMES: '{"1":"GOA","6":"COL"}'
+      # Optional — JSON map of record_type_id -> wire name; defaults to the 7CAV record table.
+      # RECORD_TYPE_NAMES: '{"1":"RECORD_TYPE_PROMOTION","2":"RECORD_TYPE_OPERATION"}'
+      # Optional — comma-separated record type ids that trigger S1 uniform recalculation; defaults to 1,6,7,8,9.
+      # UNIFORM_TRIGGER_RECORD_TYPES: "1,6,7,8,9"
       # Optional — populates Ticket.forum_url; empty if unset.
       # FORUM_BASE_URL: https://7cav.us
       # Optional — refresh interval for the in-memory ticket reference cache; defaults to 15m.

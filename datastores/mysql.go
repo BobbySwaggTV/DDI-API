@@ -427,14 +427,6 @@ func getUniformDate(profile milpacs.Profile) string {
 }
 
 func getUniformUpdateTriggerDate(profile milpacs.Profile) string {
-	relevantRecordTypes := map[types.RecordType]bool{
-		types.RecordTypePromotion:  true,
-		types.RecordTypeAssignment: true,
-		types.RecordTypeEloa:       true,
-		types.RecordTypeNameChange: true,
-		types.RecordTypeGraduation: true,
-	}
-
 	var latestTimestamp int64
 
 	for _, award := range profile.AwardRecords {
@@ -444,7 +436,7 @@ func getUniformUpdateTriggerDate(profile milpacs.Profile) string {
 	}
 
 	for _, record := range profile.Records {
-		if relevantRecordTypes[types.RecordType(record.RecordTypeId)] && int64(record.RecordDate) > latestTimestamp {
+		if config.IsUniformTriggerRecordType(int32(record.RecordTypeId)) && int64(record.RecordDate) > latestTimestamp {
 			latestTimestamp = int64(record.RecordDate)
 		}
 	}

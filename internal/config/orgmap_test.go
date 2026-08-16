@@ -54,3 +54,25 @@ func TestRankShortDefaults(t *testing.T) {
 	assert.Equal(t, "PVT", RankShort(22))
 	assert.Equal(t, "24", RankShort(24))
 }
+
+func TestRecordTypeNameDefaults(t *testing.T) {
+	Load()
+	assert.Equal(t, "RECORD_TYPE_UNSPECIFIED", RecordTypeName(0))
+	assert.Equal(t, "RECORD_TYPE_PROMOTION", RecordTypeName(1))
+	assert.Equal(t, "RECORD_TYPE_ELOA", RecordTypeName(8))
+	assert.Equal(t, "99", RecordTypeName(99))
+}
+
+func TestRecordTypeIsCataloged(t *testing.T) {
+	Load()
+	assert.True(t, RecordTypeIsCataloged(1))
+	assert.False(t, RecordTypeIsCataloged(99))
+}
+
+func TestIsUniformTriggerRecordType(t *testing.T) {
+	Load()
+	assert.True(t, IsUniformTriggerRecordType(1))
+	assert.True(t, IsUniformTriggerRecordType(6))
+	assert.False(t, IsUniformTriggerRecordType(2))
+	assert.False(t, IsUniformTriggerRecordType(5))
+}

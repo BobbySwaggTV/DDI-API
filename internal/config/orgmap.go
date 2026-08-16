@@ -15,11 +15,13 @@ import (
 
 // orgMap holds the runtime organization mapping state.
 type orgMap struct {
-	RosterNames   map[int32]string
-	RankShorts    map[int32]string
-	AOR           map[string]string
-	AORSubstrings map[string]string
-	AwolActive    []int
+	RosterNames         map[int32]string
+	RankShorts          map[int32]string
+	RecordTypeNames     map[int32]string
+	UniformTriggerTypes []int
+	AOR                 map[string]string
+	AORSubstrings       map[string]string
+	AwolActive          []int
 }
 
 var (
@@ -72,6 +74,31 @@ func loadFromViper() *orgMap {
 			for k, val := range ranks {
 				om.RankShorts[k] = val
 			}
+		}
+	}
+
+	if v := viper.GetString("RECORD_TYPE_NAMES"); v != "" {
+		var records map[int32]string
+		if err := json.Unmarshal([]byte(v), &records); err == nil {
+			for k, val := range records {
+				om.RecordTypeNames[k] = val
+			}
+		}
+	}
+
+	if v := viper.GetString("UNIFORM_TRIGGER_RECORD_TYPES"); v != "" {
+		var ids []int
+		for _, s := range strings.Split(v, ",") {
+			s = strings.TrimSpace(s)
+			if s == "" {
+				continue
+			}
+			if i, err := strconv.Atoi(s); err == nil {
+				ids = append(ids, i)
+			}
+		}
+		if len(ids) > 0 {
+			om.UniformTriggerTypes = ids
 		}
 	}
 
@@ -155,6 +182,19 @@ func defaultOrgMap() *orgMap {
 			30: "WO1",
 			31: "AR",
 		},
+		RecordTypeNames: map[int32]string{
+			0: "RECORD_TYPE_UNSPECIFIED",
+			1: "RECORD_TYPE_PROMOTION",
+			2: "RECORD_TYPE_OPERATION",
+			3: "RECORD_TYPE_TRANSFER",
+			4: "RECORD_TYPE_DISCIPLINARY",
+			5: "RECORD_TYPE_DISCHARGE",
+			6: "RECORD_TYPE_ASSIGNMENT",
+			7: "RECORD_TYPE_NAME_CHANGE",
+			8: "RECORD_TYPE_ELOA",
+			9: "RECORD_TYPE_GRADUATION",
+		},
+		UniformTriggerTypes: []int{1, 6, 7, 8, 9},
 		AOR: map[string]string{
 			"Regimental HQ":             "HHQ",
 			"Support Attachment":        "HHQ",
@@ -256,4 +296,39 @@ func RankShort(rankId int32) string {
 		return short
 	}
 	return strconv.FormatInt(int64(rankId), 10)
+}
+
+// RecordTypeName returns the wire name for a record type id. Uncataloged ids
+// fall back to their decimal string.
+func RecordTypeName(recordTypeId int32) string {
+	ensureLoaded()
+	orgMu.RLock()
+	defer orgMu.RUnlock()
+	if name, ok := org.RecordTypeNames[recordTypeId]; ok {
+		return name
+	}
+	return strconv.FormatInt(int64(recordTypeId), 10)
+}
+
+// RecordTypeIsCataloged reports whether a record type id has a wire name.
+func RecordTypeIsCataloged(recordTypeId int32) bool {
+	ensureLoaded()
+	orgMu.RLock()
+	defer orgMu.RUnlock()
+	_, ok := org.RecordTypeNames[recordTypeId]
+	return ok
+}
+
+// IsUniformTriggerRecordType reports whether a record type should trigger the
+// S1 uniform update recalculation.
+func IsUniformTriggerRecordType(recordTypeId int32) bool {
+	ensureLoaded()
+	orgMu.RLock()
+	defer orgMu.RUnlock()
+	for _, id := range org.UniformTriggerTypes {
+		if int32(id) == recordTypeId {
+			return true
+		}
+	}
+	return false
 }
