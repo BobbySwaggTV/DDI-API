@@ -31,6 +31,14 @@ services:
       DB_PORT: 3306
       # Optional — root URL for rank, award, and uniform images; defaults to https://7cav.us.
       # ASSET_BASE_URL: https://7cav.us
+      # Optional — JSON map of roster id -> wire name; defaults to the 7CAV roster taxonomy.
+      # ORG_ROSTER_NAMES: '{"1":"ROSTER_TYPE_COMBAT","2":"ROSTER_TYPE_RESERVE"}'
+      # Optional — JSON map of position group title -> AOR; defaults to the 7CAV AOR map.
+      # ORG_POSITION_GROUP_AOR: '{"Regimental HQ":"HHQ","New Recruits":"RTC"}'
+      # Optional — JSON map of substring -> AOR for AOR matching; defaults to {"Command":"HHQ"}.
+      # ORG_AOR_SUBSTRINGS: '{"Command":"HHQ"}'
+      # Optional — comma-separated roster ids for AWOL eligibility; defaults to 1,2.
+      # ORG_AWOL_ACTIVE_ROSTERS: "1,2"
       # Optional — populates Ticket.forum_url; empty if unset.
       # FORUM_BASE_URL: https://7cav.us
       # Optional — refresh interval for the in-memory ticket reference cache; defaults to 15m.

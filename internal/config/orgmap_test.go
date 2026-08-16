@@ -1,0 +1,48 @@
+package config
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestRosterNameDefaults(t *testing.T) {
+	Load()
+	assert.Equal(t, "ROSTER_TYPE_UNSPECIFIED", RosterName(0))
+	assert.Equal(t, "ROSTER_TYPE_COMBAT", RosterName(1))
+	assert.Equal(t, "ROSTER_TYPE_RESERVE", RosterName(2))
+	assert.Equal(t, "ROSTER_TYPE_ELOA", RosterName(3))
+	assert.Equal(t, "99", RosterName(99))
+}
+
+func TestRosterValueDefaults(t *testing.T) {
+	Load()
+	v, ok := RosterValue("ROSTER_TYPE_COMBAT")
+	assert.True(t, ok)
+	assert.Equal(t, int32(1), v)
+
+	_, ok = RosterValue("UNKNOWN")
+	assert.False(t, ok)
+}
+
+func TestRosterIsCataloged(t *testing.T) {
+	Load()
+	assert.True(t, RosterIsCataloged(1))
+	assert.False(t, RosterIsCataloged(99))
+}
+
+func TestAORForDefaults(t *testing.T) {
+	Load()
+	assert.Equal(t, "HHQ", AORFor("Regimental HQ"))
+	assert.Equal(t, "HHQ", AORFor("Support Attachment"))
+	assert.Equal(t, "RTC", AORFor("New Recruits"))
+	assert.Equal(t, "Reserve", AORFor("7th Cavalry Reservists"))
+	assert.Equal(t, "ELOA", AORFor("Extended Leave Of Absence"))
+	assert.Equal(t, "HHQ", AORFor("Command Staff"))
+	assert.Equal(t, "Alpha Company", AORFor("Alpha Company"))
+}
+
+func TestAwolActiveRostersDefault(t *testing.T) {
+	Load()
+	assert.Equal(t, []int{1, 2}, AwolActiveRosters())
+}

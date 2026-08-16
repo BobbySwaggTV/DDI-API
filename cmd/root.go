@@ -19,6 +19,7 @@
 package cmd
 
 import (
+	"github.com/BobbySwaggTV/DDI-API/internal/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -41,7 +42,10 @@ func init() {
 
 // initConfig wires configuration to environment variables. The service is
 // configured entirely through env vars (DB_*, TRUSTED_PROXIES, SENTRY_DSN,
-// ASSET_BASE_URL, FORUM_BASE_URL, REFERENCE_CACHE_REFRESH_INTERVAL); there is no config file.
+// ASSET_BASE_URL, FORUM_BASE_URL, REFERENCE_CACHE_REFRESH_INTERVAL,
+// ORG_ROSTER_NAMES, ORG_POSITION_GROUP_AOR, ORG_AOR_SUBSTRINGS,
+// ORG_AWOL_ACTIVE_ROSTERS); there is no config file.
 func initConfig() {
 	viper.AutomaticEnv()
+	config.Load()
 }

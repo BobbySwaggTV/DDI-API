@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/BobbySwaggTV/DDI-API/internal/config"
 	"github.com/BobbySwaggTV/DDI-API/milpacs"
 	"github.com/BobbySwaggTV/DDI-API/types"
 	"github.com/BobbySwaggTV/DDI-API/xenforo"
@@ -455,24 +456,7 @@ func getUniformUpdateTriggerDate(profile milpacs.Profile) string {
 }
 
 func getPositionGroup(profile milpacs.Profile) string {
-	primaryGroup := profile.Primary.Group.Title
-
-	switch primaryGroup {
-	case "Regimental HQ", "Support Attachment":
-		return "HHQ"
-	case "New Recruits":
-		return "RTC"
-	case "7th Cavalry Reservists":
-		return "Reserve"
-	case "Extended Leave Of Absence":
-		return "ELOA"
-	}
-
-	if strings.Contains(primaryGroup, "Command") {
-		return "HHQ"
-	}
-
-	return primaryGroup
+	return config.AORFor(profile.Primary.Group.Title)
 }
 
 func (ds Mysql) FindAllRanks() ([]*types.RankExpanded, error) {
@@ -733,7 +717,7 @@ func (ds Mysql) FindAwol() ([]*types.Awol, error) {
 		Joins("INNER JOIN xf_nf_rosters_rank as ranks ON milpacs.rank_id = ranks.rank_id").
 		Joins("INNER JOIN xf_nf_rosters_position position ON milpacs.position_id = position.position_id").
 		Joins("INNER JOIN xf_nf_rosters_position_group pGroup ON position.position_group_id = pGroup.position_group_id").
-		Where("milpacs.roster_id IN (?)", []int{1, 2}).
+		Where("milpacs.roster_id IN (?)", config.AwolActiveRosters()).
 		Where("posts.date <= ?", cutoffTimestamp).
 		Find(&awols)
 
