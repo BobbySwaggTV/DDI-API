@@ -29,8 +29,9 @@ services:
       DB_PASSWORD:
       DB_HOST: xenforo-db
       DB_PORT: 3306
-      # Optional — root URL for rank, award, and uniform images; defaults to https://7cav.us.
-      # ASSET_BASE_URL: https://7cav.us
+      # Required — DDI root URL for rank, award, and uniform images.
+      # In local dev the API falls back to the legacy https://7cav.us host if unset.
+      # ASSET_BASE_URL: ${ASSET_BASE_URL:?ASSET_BASE_URL must be set to a DDI asset host}
       # Optional — JSON map of roster id -> wire name; defaults to the 7CAV roster taxonomy.
       # ORG_ROSTER_NAMES: '{"1":"ROSTER_TYPE_ACTIVE","2":"ROSTER_TYPE_RESERVE"}'
       # Optional — JSON map of position group title -> AOR; defaults to the 7CAV AOR map.
@@ -46,7 +47,7 @@ services:
       # Optional — comma-separated record type ids that trigger S1 uniform recalculation; defaults to 1,6,7,8,9.
       # UNIFORM_TRIGGER_RECORD_TYPES: "1,6,7,8,9"
       # Optional — populates Ticket.forum_url; empty if unset.
-      # FORUM_BASE_URL: https://7cav.us
+      # FORUM_BASE_URL: https://forums.ddi.example
       # Optional — refresh interval for the in-memory ticket reference cache; defaults to 15m.
       # REFERENCE_CACHE_REFRESH_INTERVAL: 15m
       # Optional — enables errors-only Sentry capture (#118). The DSN lives only
