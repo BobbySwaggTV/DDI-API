@@ -41,7 +41,7 @@ func init() {
 
 // initConfig wires configuration to environment variables. The service is
 // configured entirely through env vars (DB_*, TRUSTED_PROXIES, SENTRY_DSN,
-// FORUM_BASE_URL, REFERENCE_CACHE_REFRESH_INTERVAL); there is no config file.
+// ASSET_BASE_URL, FORUM_BASE_URL, REFERENCE_CACHE_REFRESH_INTERVAL); there is no config file.
 func initConfig() {
 	viper.AutomaticEnv()
 }

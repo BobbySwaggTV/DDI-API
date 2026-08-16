@@ -29,6 +29,8 @@ services:
       DB_PASSWORD:
       DB_HOST: xenforo-db
       DB_PORT: 3306
+      # Optional — root URL for rank, award, and uniform images; defaults to https://7cav.us.
+      # ASSET_BASE_URL: https://7cav.us
       # Optional — populates Ticket.forum_url; empty if unset.
       # FORUM_BASE_URL: https://7cav.us
       # Optional — refresh interval for the in-memory ticket reference cache; defaults to 15m.

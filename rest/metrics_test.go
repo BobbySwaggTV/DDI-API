@@ -641,7 +641,7 @@ func TestMetrics_BearerMaterialAbsentFromExposition(t *testing.T) {
 		"ddi_ticketskey", // valid, wrong scope — 403
 		"ddi_noscopekey", // valid, no scopes — 403
 		"ddi_unknownkey", // unknown — generic 401
-		"",                // missing header — scheme 401
+		"",               // missing header — scheme 401
 	} {
 		do(h, http.MethodGet, "/api/v1/milpacs/ranks", bearer)
 	}
