@@ -1,4 +1,4 @@
-# Prod-shaped template — mirrors the live `7cav-api` stack.
+# Prod-shaped template — mirrors the live `ddi-api` stack.
 #
 # Prerequisites for `docker compose up`:
 #   - A `xenforo` stack is already running (provides `xenforo-db` on
@@ -12,8 +12,8 @@ services:
     build:
       dockerfile: "Dockerfile"
       context: "./"
-    image: 7cav/api:latest
-    container_name: 7cav-api
+    image: ddi/api:latest
+    container_name: ddi-api
     labels:
       - com.centurylinklabs.watchtower.enable=true
     networks:

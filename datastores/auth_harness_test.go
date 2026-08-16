@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/7cav/api/datastores"
-	"github.com/7cav/api/testdb"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
+	"github.com/BobbySwaggTV/DDI-API/testdb"
 	gormmysql "gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -65,7 +65,7 @@ func TestValidateApiKey_RevokedKeyYieldsNil(t *testing.T) {
 func TestValidateApiKey_UnknownKeyYieldsNil(t *testing.T) {
 	ds := openHarnessDatastore(t)
 
-	result, err := ds.ValidateApiKey("cav7_never_issued")
+	result, err := ds.ValidateApiKey("ddi_never_issued")
 	if err != nil {
 		t.Fatalf("ValidateApiKey(unknown): %v", err)
 	}

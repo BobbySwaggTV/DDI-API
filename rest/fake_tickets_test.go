@@ -16,8 +16,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/7cav/api/datastores"
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"gorm.io/gorm"
 )
 

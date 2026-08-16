@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"gorm.io/gorm"
 )
 

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

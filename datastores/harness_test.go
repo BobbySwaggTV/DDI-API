@@ -17,9 +17,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/7cav/api/datastores"
-	"github.com/7cav/api/referencecache"
-	"github.com/7cav/api/testdb"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
+	"github.com/BobbySwaggTV/DDI-API/referencecache"
+	"github.com/BobbySwaggTV/DDI-API/testdb"
 	gormmysql "gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

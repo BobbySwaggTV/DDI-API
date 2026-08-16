@@ -1,6 +1,6 @@
 /*
  *  Copyright (C) 2021 7Cav.us
- *  This file is part of 7Cav-API <https://github.com/7cav/api>.
+ *  This file is part of 7Cav-API <https://github.com/BobbySwaggTV/DDI-API>.
  *
  *  7Cav-API is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "api",
-	Short: "7Cav API",
-	Long:  `An HTTP/JSON service that serves core 7Cav data`,
+	Short: "DDI API",
+	Long:  `An HTTP/JSON service that serves core DDI data`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

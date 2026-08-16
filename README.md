@@ -1,8 +1,8 @@
-<p align="center"><img src="https://github.com/7Cav/api/blob/develop/logo.png"></p>
+<p align="center"><img src="https://github.com/BobbySwaggTV/DDI-API/blob/develop/logo.png"></p>
 
-# Cav API
+# DDI API
 
-An HTTP/JSON API that serves 7Cav community and roster data. It is a read
+An HTTP/JSON API that serves DDI community and roster data. It is a read
 layer over the forum's MySQL database, written in Go on the standard
 library `net/http` stack.
 
@@ -20,7 +20,7 @@ Authorization: Bearer <your token>
 
 ### HTTP/JSON
 
-The interactive documentation lives at [api.7cav.us](https://api.7cav.us).
+The interactive documentation lives at [api.daggerdefenseindustries.com](https://api.daggerdefenseindustries.com).
 
 > To try the API from the docs page, click the `Authorize` button at the
 > top and paste your bearer token.
@@ -34,7 +34,7 @@ const axios = require('axios');
 const token = "<your token>";
 
 const client = axios.create({
-  baseURL: 'https://api.7cav.us/api/v1',
+  baseURL: 'https://api.daggerdefenseindustries.com/api/v1',
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -67,7 +67,7 @@ func main() {
         TokenType:   "Bearer",
     }))
 
-    res, err := client.Get("https://api.7cav.us/api/v1/milpacs/profile/id/1")
+    res, err := client.Get("https://api.daggerdefenseindustries.com/api/v1/milpacs/profile/id/1")
     if err != nil {
         panic(err)
     }
@@ -96,7 +96,7 @@ directions, so the three stay in step and any drift fails CI naming the
 operation and field. The domain glossary and the add-an-endpoint checklist
 live in [`CONTEXT.md`](CONTEXT.md).
 
-[prd]: https://github.com/7Cav/api/issues/112
+[prd]: https://github.com/BobbySwaggTV/DDI-API/issues/112
 [adr6]: docs/adr/0006-single-listener-net-http-and-hand-owned-openapi.md
 
 ## Running
@@ -106,7 +106,7 @@ the single HTTP listener. The `docker-compose.yaml` in this repo is a
 prod-shaped template; the live compose file is customized and kept out of
 the repo.
 
-You need a copy of the 7Cav XenForo database reachable from the container
+You need a copy of the DDI XenForo database reachable from the container
 (see the `DB_*` environment variables in `docker-compose.yaml`). Then:
 
 ```shell

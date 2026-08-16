@@ -9,9 +9,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/7cav/api/contract"
-	"github.com/7cav/api/rest"
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/contract"
+	"github.com/BobbySwaggTV/DDI-API/rest"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -20,7 +20,7 @@ import (
 func rosterGet(t *testing.T, h http.Handler, path string) *httptest.ResponseRecorder {
 	t.Helper()
 	req := httptest.NewRequest(http.MethodGet, path, nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
 	return rr
@@ -45,7 +45,7 @@ func TestNewStack_AllRosterRoutes403UnderTicketScopedKey(t *testing.T) {
 	for _, path := range rosterRoutePaths {
 		t.Run(path, func(t *testing.T) {
 			req := httptest.NewRequest(http.MethodGet, path, nil)
-			req.Header.Set("Authorization", "Bearer cav7_ticketskey")
+			req.Header.Set("Authorization", "Bearer ddi_ticketskey")
 			rr := httptest.NewRecorder()
 			h.ServeHTTP(rr, req)
 
@@ -69,7 +69,7 @@ func TestNewStack_RosterWrongScopeBeatsBogusEnum_RuledBreak(t *testing.T) {
 	} {
 		t.Run(path, func(t *testing.T) {
 			req := httptest.NewRequest(http.MethodGet, path, nil)
-			req.Header.Set("Authorization", "Bearer cav7_ticketskey")
+			req.Header.Set("Authorization", "Bearer ddi_ticketskey")
 			rr := httptest.NewRecorder()
 			h.ServeHTTP(rr, req)
 
@@ -240,7 +240,7 @@ func TestNewStack_WrongMethodOnRosterRouteIs405WithAllow(t *testing.T) {
 	h := newStack(t)
 
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/roster/ROSTER_TYPE_COMBAT", nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
 
@@ -286,7 +286,7 @@ func TestNewStack_LargeRosterComparesCleanAtFullSize(t *testing.T) {
 	require.NoError(t, json.Unmarshal(golden.Profiles["2"], &wantDoe))
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/roster/ROSTER_TYPE_COMBAT", nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	req.Header.Set("Accept-Encoding", "gzip")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)

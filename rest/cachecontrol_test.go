@@ -31,7 +31,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/7cav/api/contract"
+	"github.com/BobbySwaggTV/DDI-API/contract"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -152,7 +152,7 @@ func TestNewStack_RanksCarriesRosterFamilyCacheControl(t *testing.T) {
 	h := newStack(t)
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/milpacs/ranks", nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
 
@@ -173,8 +173,8 @@ func TestNewStack_HEADCarriesCacheControl(t *testing.T) {
 	cases := []struct {
 		name, path, key, want string
 	}{
-		{"roster_family", "/api/v1/milpacs/ranks", "cav7_readkey", "max-age=600"},
-		{"tickets", "/api/v1/tickets/categories", "cav7_ticketskey", "max-age=0"},
+		{"roster_family", "/api/v1/milpacs/ranks", "ddi_readkey", "max-age=600"},
+		{"tickets", "/api/v1/tickets/categories", "ddi_ticketskey", "max-age=0"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -198,7 +198,7 @@ func TestNewStack_GzippedResponseKeepsCacheControl(t *testing.T) {
 	h := newStack(t)
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/milpacs/ranks", nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	req.Header.Set("Accept-Encoding", "gzip")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
@@ -222,9 +222,9 @@ func TestNewStack_NonRouteSurfacesCarryNoCacheControl(t *testing.T) {
 		key        string
 		wantStatus int
 	}{
-		{"clean_path_307", http.MethodGet, "/api/v1/milpacs/position/search/A//B", "cav7_readkey", http.StatusTemporaryRedirect},
-		{"wrong_method_405", http.MethodPost, "/api/v1/milpacs/ranks", "cav7_readkey", http.StatusMethodNotAllowed},
-		{"unknown_ticket_sub_404", http.MethodGet, "/api/v1/tickets/42/bogus", "cav7_ticketskey", http.StatusNotFound},
+		{"clean_path_307", http.MethodGet, "/api/v1/milpacs/position/search/A//B", "ddi_readkey", http.StatusTemporaryRedirect},
+		{"wrong_method_405", http.MethodPost, "/api/v1/milpacs/ranks", "ddi_readkey", http.StatusMethodNotAllowed},
+		{"unknown_ticket_sub_404", http.MethodGet, "/api/v1/tickets/42/bogus", "ddi_ticketskey", http.StatusNotFound},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

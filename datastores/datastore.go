@@ -1,6 +1,6 @@
 /*
  *  Copyright (C) 2021 7Cav.us
- *  This file is part of 7Cav-API <https://github.com/7cav/api>.
+ *  This file is part of 7Cav-API <https://github.com/BobbySwaggTV/DDI-API>.
  *
  *  7Cav-API is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,8 +24,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/7cav/api/referencecache"
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/referencecache"
+	"github.com/BobbySwaggTV/DDI-API/types"
 )
 
 var (

@@ -13,7 +13,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/7cav/api/datastores"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -73,7 +73,7 @@ func TestAuthMiddleware_RawKeyNoBearerPrefix_NamesBearerScheme(t *testing.T) {
 		t.Fatal("ValidateApiKey must not be called when the Bearer scheme is absent")
 		return nil, nil
 	}}
-	rr, nextCalled, _ := callMiddleware(t, ds, "cav7_rawkeywithoutprefix")
+	rr, nextCalled, _ := callMiddleware(t, ds, "ddi_rawkeywithoutprefix")
 
 	assert.Equal(t, http.StatusUnauthorized, rr.Code)
 	assert.False(t, nextCalled)
@@ -84,10 +84,10 @@ func TestAuthMiddleware_RawKeyNoBearerPrefix_NamesBearerScheme(t *testing.T) {
 
 func TestAuthMiddleware_BadKey_GenericUnauthorizedNoLeak(t *testing.T) {
 	ds := &fakeAuthDatastore{validateApiKey: func(token string) (*datastores.ApiKeyResult, error) {
-		assert.Equal(t, "cav7_badkey", token)
+		assert.Equal(t, "ddi_badkey", token)
 		return nil, nil // zero rows → nil result, no error
 	}}
-	rr, nextCalled, _ := callMiddleware(t, ds, "Bearer cav7_badkey")
+	rr, nextCalled, _ := callMiddleware(t, ds, "Bearer ddi_badkey")
 
 	assert.Equal(t, http.StatusUnauthorized, rr.Code)
 	assert.False(t, nextCalled)
@@ -103,7 +103,7 @@ func TestAuthMiddleware_ValidKey_CallsNextWithKeyOnContext(t *testing.T) {
 	ds := &fakeAuthDatastore{validateApiKey: func(string) (*datastores.ApiKeyResult, error) {
 		return key, nil
 	}}
-	rr, nextCalled, seenKey := callMiddleware(t, ds, "Bearer cav7_goodkey")
+	rr, nextCalled, seenKey := callMiddleware(t, ds, "Bearer ddi_goodkey")
 
 	require.True(t, nextCalled)
 	assert.Equal(t, http.StatusOK, rr.Code)
@@ -122,7 +122,7 @@ func TestAuthMiddleware_DatastoreError_Is503AndLogged(t *testing.T) {
 	ds := &fakeAuthDatastore{validateApiKey: func(string) (*datastores.ApiKeyResult, error) {
 		return nil, io.ErrUnexpectedEOF
 	}}
-	rr, nextCalled, _ := callMiddleware(t, ds, "Bearer cav7_secrettoken")
+	rr, nextCalled, _ := callMiddleware(t, ds, "Bearer ddi_secrettoken")
 
 	assert.False(t, nextCalled)
 	assert.Equal(t, http.StatusServiceUnavailable, rr.Code)
@@ -134,7 +134,7 @@ func TestAuthMiddleware_DatastoreError_Is503AndLogged(t *testing.T) {
 	assert.Contains(t, logged, "unexpected EOF")
 	assert.Contains(t, logged, "GET")
 	assert.Contains(t, logged, "/api/v1/whatever")
-	assert.NotContains(t, logged, "cav7_secrettoken", "the bearer token must NEVER be logged")
+	assert.NotContains(t, logged, "ddi_secrettoken", "the bearer token must NEVER be logged")
 }
 
 // captureWarnLog redirects the package Warn logger into a buffer for one test
@@ -187,7 +187,7 @@ func TestAuthMiddleware_UnknownKey401_LogsClientAndPeer(t *testing.T) {
 	next := http.HandlerFunc(func(http.ResponseWriter, *http.Request) {})
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/whatever", nil)
 	req.RemoteAddr = "10.0.0.5:443"
-	req.Header.Set("Authorization", "Bearer cav7_unknownkey")
+	req.Header.Set("Authorization", "Bearer ddi_unknownkey")
 	req.Header.Set("X-Forwarded-For", "203.0.113.9, 10.0.0.4")
 	rr := httptest.NewRecorder()
 	AuthMiddleware(ds, next).ServeHTTP(rr, req)

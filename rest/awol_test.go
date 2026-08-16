@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/7cav/api/rest"
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/rest"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -20,7 +20,7 @@ func TestNewStack_EmptyAwolListIsEmptyArray(t *testing.T) {
 		return nil, nil
 	}}, &stubReferenceCache{})
 
-	rr := positionsGet(t, h, "/api/v1/milpacs/awol", "cav7_readkey")
+	rr := positionsGet(t, h, "/api/v1/milpacs/awol", "ddi_readkey")
 
 	require.Equal(t, http.StatusOK, rr.Code)
 	assert.Equal(t, `{"awols":[]}`, strings.TrimSpace(rr.Body.String()))

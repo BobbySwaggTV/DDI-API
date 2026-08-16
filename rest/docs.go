@@ -31,7 +31,7 @@ import (
 	"io/fs"
 	"net/http"
 
-	"github.com/7cav/api/openapi"
+	"github.com/BobbySwaggTV/DDI-API/openapi"
 )
 
 // specURLPath is where the OpenAPI 3.1 document is served. The docs shell

@@ -1,6 +1,6 @@
 /*
  *  Copyright (C) 2021 7Cav.us
- *  This file is part of 7Cav-API <https://github.com/7cav/api>.
+ *  This file is part of 7Cav-API <https://github.com/BobbySwaggTV/DDI-API>.
  *
  *  7Cav-API is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,16 +28,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/7cav/api/datastores"
-	"github.com/7cav/api/referencecache"
-	"github.com/7cav/api/rest"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
+	"github.com/BobbySwaggTV/DDI-API/referencecache"
+	"github.com/BobbySwaggTV/DDI-API/rest"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 // version is overridden at build time via -ldflags
-// "-X github.com/7cav/api/servers.version=<tag>" in the release workflow.
+// "-X github.com/BobbySwaggTV/DDI-API/servers.version=<tag>" in the release workflow.
 // Local dev builds report "dev". It stamps the Sentry release and the served
 // OpenAPI spec's info.version.
 var version = "dev"
@@ -135,7 +135,7 @@ func setupDatasource() *datastores.Mysql {
 }
 
 func (server *MicroServer) Start() {
-	Info.Println("Starting 7Cav API version:", version)
+	Info.Println("Starting DDI API version:", version)
 
 	// Resolve and cache the trusted-proxy set (TRUSTED_PROXIES, ADR 0005) ONCE
 	// before any listener opens: rest.AuthMiddleware reads this cache to resolve

@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/7cav/api/referencecache"
-	"github.com/7cav/api/types"
-	"github.com/7cav/api/xenforo"
+	"github.com/BobbySwaggTV/DDI-API/referencecache"
+	"github.com/BobbySwaggTV/DDI-API/types"
+	"github.com/BobbySwaggTV/DDI-API/xenforo"
 	"github.com/spf13/viper"
 )
 

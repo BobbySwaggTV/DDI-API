@@ -1,4 +1,4 @@
-module github.com/7cav/api
+module github.com/BobbySwaggTV/DDI-API
 
 go 1.25.10
 

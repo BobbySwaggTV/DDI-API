@@ -3,8 +3,8 @@ package rest
 import (
 	"net/http"
 
-	"github.com/7cav/api/datastores"
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
+	"github.com/BobbySwaggTV/DDI-API/types"
 )
 
 // The three roster routes (#127) serve the SAME member set in three profile

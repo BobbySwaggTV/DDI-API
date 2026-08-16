@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/7cav/api/datastores"
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"gorm.io/gorm"
 )
 
@@ -39,11 +39,11 @@ type recordingDatastore struct{}
 
 func (recordingDatastore) ValidateApiKey(rawKey string) (*datastores.ApiKeyResult, error) {
 	switch rawKey {
-	case "cav7_readkey":
+	case "ddi_readkey":
 		return &datastores.ApiKeyResult{KeyId: 101, UserId: 3, Scopes: scopeSet("read")}, nil
-	case "cav7_ticketskey":
+	case "ddi_ticketskey":
 		return &datastores.ApiKeyResult{KeyId: 102, UserId: 8, Scopes: scopeSet("read:tickets")}, nil
-	case "cav7_noscopekey":
+	case "ddi_noscopekey":
 		return &datastores.ApiKeyResult{KeyId: 103, UserId: 9, Scopes: scopeSet()}, nil
 	default:
 		return nil, nil // zero rows — generic Unauthorized, leaks nothing

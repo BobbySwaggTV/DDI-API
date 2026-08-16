@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/7cav/api/milpacs"
-	"github.com/7cav/api/types"
-	"github.com/7cav/api/xenforo"
+	"github.com/BobbySwaggTV/DDI-API/milpacs"
+	"github.com/BobbySwaggTV/DDI-API/types"
+	"github.com/BobbySwaggTV/DDI-API/xenforo"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

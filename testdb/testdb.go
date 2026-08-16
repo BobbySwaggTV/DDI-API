@@ -42,8 +42,8 @@ const rootPassword = "harness"
 // ("read", "read:tickets"); its hash lives in xf_cav7_api_key.
 // RevokedAPIKey is seeded inactive and must fail validation.
 const (
-	ActiveAPIKey  = "cav7_harness_active"
-	RevokedAPIKey = "cav7_harness_revoked"
+	ActiveAPIKey  = "ddi_harness_active"
+	RevokedAPIKey = "ddi_harness_revoked"
 )
 
 //go:embed schema.sql

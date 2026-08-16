@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/7cav/api/datastores"
-	"github.com/7cav/api/testdb"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
+	"github.com/BobbySwaggTV/DDI-API/testdb"
 )
 
 // applyIndexDDL runs the in-repo index script against a disposable

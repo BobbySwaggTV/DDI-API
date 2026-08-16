@@ -1,4 +1,4 @@
-# OpenAPI 3.1 reference for the 7Cav public HTTP API: read-only JSON over
+# OpenAPI 3.1 reference for the DDI public HTTP API: read-only JSON over
 # HTTPS, with a bearer API key required on every endpoint.
 #
 # JSON conventions used throughout the responses below:
@@ -9,28 +9,28 @@
 #   - Enum fields are sent as their name; the unset value is *_UNSPECIFIED.
 openapi: 3.1.0
 info:
-  title: 7Cav API
+  title: DDI API
   # Unknown query parameters are ignored on every operation rather than
   # rejected: a request with an undeclared parameter is accepted, not a 400.
   # Tooling that flags this is seeing intended behavior, not a defect.
   description: >-
-    Read-only access to 7Cav.us roster and forum data. All endpoints require a
+    Read-only access to DDI roster and forum data. All endpoints require a
     bearer API key.
 
 
     ## Get your API key
 
 
-    Generate a key from the [7Cav API key
-    manager](https://7cav.us/account/api-key) (members only). Enter it in the
+    Generate a key from the [DDI API key
+    manager](https://daggerdefenseindustries.com/account/api-key) (members only). Enter it in the
     reference's authentication controls to try any endpoint. The docs send it as
-    `Authorization: Bearer <key>`, so enter only the raw `cav7_…` key.
+    `Authorization: Bearer <key>`, so enter only the raw `ddi_…` key.
   version: dev
 externalDocs:
-  description: 7Cav API Repository
-  url: https://github.com/7cav/api
+  description: DDI API Repository
+  url: https://github.com/BobbySwaggTV/DDI-API
 servers:
-  - url: https://api.7cav.us
+  - url: https://api.daggerdefenseindustries.com
 tags:
   - name: milpacs
     description: Milpac profiles, rosters, ranks, positions and AWOL tracking.
@@ -900,14 +900,14 @@ paths:
 components:
   securitySchemes:
     # http/bearer makes the docs UI auto-prepend "Bearer " so users paste only
-    # the raw cav7_… key.
+    # the raw ddi_… key.
     bearer:
       type: http
       scheme: bearer
       description: >-
-        7Cav API key (cav7_…), sent as `Authorization: Bearer <key>`.
+        DDI API key (ddi_…), sent as `Authorization: Bearer <key>`.
         Members generate a key from the API key manager at
-        https://7cav.us/account/api-key.
+        https://daggerdefenseindustries.com/account/api-key.
         Requests without the Bearer scheme receive a plain-text 401 naming
         the expected header form; unknown keys receive a generic plain-text
         401; valid keys lacking the operation's scope receive a JSON 403.

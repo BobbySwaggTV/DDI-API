@@ -310,8 +310,8 @@ INSERT INTO xf_cav7_api_key_scope_def
 
 INSERT INTO xf_cav7_api_key
   (key_id, user_id, key_hash, key_prefix, is_active, created_date) VALUES
-  (1, 401, UNHEX(SHA2('cav7_harness_active', 256)),  'cav7_harness', 1, 1740000000),
-  (2, 400, UNHEX(SHA2('cav7_harness_revoked', 256)), 'cav7_harness', 0, 1740000000);
+  (1, 401, UNHEX(SHA2('ddi_harness_active', 256)),  'ddi_harness', 1, 1740000000),
+  (2, 400, UNHEX(SHA2('ddi_harness_revoked', 256)), 'ddi_harness', 0, 1740000000);
 
 INSERT INTO xf_cav7_api_key_scope (key_id, scope_id) VALUES
   (1, 1),

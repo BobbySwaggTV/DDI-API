@@ -7,8 +7,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/7cav/api/rest"
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/rest"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
@@ -27,7 +27,7 @@ import (
 func secondaryOutageGet(t *testing.T, h http.Handler, path string) *httptest.ResponseRecorder {
 	t.Helper()
 	req := httptest.NewRequest(http.MethodGet, path, nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
 	return rr

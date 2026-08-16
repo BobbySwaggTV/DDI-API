@@ -21,8 +21,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/7cav/api/contract"
-	"github.com/7cav/api/rest"
+	"github.com/BobbySwaggTV/DDI-API/contract"
+	"github.com/BobbySwaggTV/DDI-API/rest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -34,7 +34,7 @@ func TestNewStack_VaryOnIdentityAPIResponse(t *testing.T) {
 	h := newStack(t)
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/milpacs/ranks", nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
 
@@ -50,7 +50,7 @@ func TestNewStack_VaryOnGzipAPIResponse(t *testing.T) {
 	h := newStack(t)
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/milpacs/ranks", nil)
-	req.Header.Set("Authorization", "Bearer cav7_readkey")
+	req.Header.Set("Authorization", "Bearer ddi_readkey")
 	req.Header.Set("Accept-Encoding", "gzip")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)

@@ -1,7 +1,7 @@
 package rest_test
 
 import (
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/types"
 )
 
 // Roster seeds for the golden replay, mirroring the recording seed

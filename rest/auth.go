@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/7cav/api/datastores"
+	"github.com/BobbySwaggTV/DDI-API/datastores"
 )
 
 // The HTTP auth middleware below is the single public listener's auth tier.
@@ -14,7 +14,7 @@ import (
 // no WWW-Authenticate challenge.
 
 // maxTokenLen is the maximum length of a raw API key we'll accept.
-// cav7_ prefix (5) + 64 hex chars = 69; 128 gives generous headroom.
+// ddi_ prefix (5) + 64 hex chars = 69; 128 gives generous headroom.
 const maxTokenLen = 128
 
 // errBearerScheme is the 401 body returned when the Authorization header is

@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/7cav/api/types"
+	"github.com/BobbySwaggTV/DDI-API/types"
 	"github.com/stretchr/testify/assert"
 )
 
